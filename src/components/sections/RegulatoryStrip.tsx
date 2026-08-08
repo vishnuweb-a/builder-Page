@@ -1,9 +1,12 @@
 import type { ReactNode } from 'react';
 import { Container } from '@/components/layout/Container.tsx';
 import { Section } from '@/components/layout/Section.tsx';
+import { ContactActions } from '@/components/ui/ContactActions.tsx';
 import { Eyebrow } from '@/components/ui/Eyebrow.tsx';
+import { formatPhone, telHref } from '@/lib/contact.ts';
 import {
   contact,
+  contactActions,
   developer,
   disclaimers,
   pricing,
@@ -27,11 +30,12 @@ import {
  *   page that advertising traffic lands on invites payment fraud against
  *   buyers, and the sales team can give them to a genuine purchaser directly.
  *
- * • The campaign phone number and WhatsApp line are `unverified` in the content
- *   layer, so `publish()` returns null and neither renders. The number below is
- *   the ATS corporate office switchboard, labelled as exactly that — it is what
- *   the brochure prints, and calling it something it is not would be the first
- *   dishonest thing on the page.
+ * The two numbers on this page are different things and stay labelled as such.
+ * The campaign line sits in the sales block above the grid, where a visitor who
+ * has read to the end of the page can reach a human. The ATS corporate office
+ * switchboard stays in the grid under "Corporate office" — it is what the
+ * brochure prints, and calling it a sales line would be the first dishonest
+ * thing on the page.
  */
 
 function Entry({ label, children }: { label: string; children: ReactNode }) {
@@ -56,6 +60,31 @@ export function RegulatoryStrip() {
       <Container as="footer" className="flex flex-col gap-10">
         <Eyebrow rule>{copy.eyebrow}</Eyebrow>
 
+        {/*
+          The sales block. Set as an editorial line — a display-type number and
+          two quiet channels above a hairline — rather than as a card of filled
+          buttons: this is the last thing on the page, and it should read like
+          the close of a brochure, not a support widget. It is also the reason
+          the campaign number no longer appears in the grid below; one number,
+          one place.
+        */}
+        {campaignPhone && (
+          <div className="flex flex-col gap-5 border-b border-ivory/12 pb-10">
+            <p className="t-eyebrow m-0 text-ivory/40">{contactActions.footerHeading}</p>
+
+            <div className="flex flex-col gap-x-12 gap-y-5 md:flex-row md:items-center md:justify-between">
+              {/* The number is set, not linked. Linking it would put a second
+                  `tel:` beside the Call action below it — one screen-reader
+                  user hearing "Call ATS Kingston Heath" twice in a row, for no
+                  extra reach. The actions own the interaction; this owns the
+                  fact, and stays selectable and copyable. */}
+              <p className="t-numeral m-0 text-ivory">{formatPhone(campaignPhone)}</p>
+
+              <ContactActions placement="footer" appearance="inline" />
+            </div>
+          </div>
+        )}
+
         <dl className="m-0 grid grid-cols-1 gap-x-12 gap-y-8 md:grid-cols-2 lg:grid-cols-4">
           <Entry label={copy.reraLabel}>
             <span className="t-small block text-ivory">{regulatory.reraNumber.value}</span>
@@ -79,7 +108,7 @@ export function RegulatoryStrip() {
           <Entry label={copy.officeLabel}>
             {regulatory.corporateOffice.value}
             <br />
-            <a href={`tel:${contact.corporatePhone.value}`} className={linkClass}>
+            <a href={telHref(contact.corporatePhone.value)} className={linkClass}>
               0120-7111500
             </a>
           </Entry>
@@ -108,15 +137,6 @@ export function RegulatoryStrip() {
             <br />
             Member, {developer.membership.value}
           </Entry>
-
-          {/* Rendered only once a campaign number is confirmed by marketing. */}
-          {campaignPhone && (
-            <Entry label="Sales">
-              <a href={`tel:${campaignPhone}`} className={linkClass}>
-                {campaignPhone}
-              </a>
-            </Entry>
-          )}
         </dl>
 
         <div className="flex flex-col gap-3 border-t border-ivory/12 pt-8">

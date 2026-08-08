@@ -1,4 +1,4 @@
-import { brochure, docs, unverified } from './_source.ts';
+import { brochure, client, docs, unverified } from './_source.ts';
 
 /** Identity — brochure cover + back cover. */
 export const project = {
@@ -37,15 +37,38 @@ export const regulatory = {
 } as const;
 
 /**
- * Contact.
- * The brochure prints only the ATS corporate switchboard. Whether the campaign
- * uses a dedicated tracking number is a marketing decision, so both the
- * campaign phone and WhatsApp remain unverified until confirmed.
+ * Contact — the ONE source of truth for every number the page dials, opens in
+ * WhatsApp or prints. Components import from here and never inline a number.
+ *
+ * Numbers are stored in E.164 (`+` and country code, no spaces or separators).
+ * That is the only format both `tel:` and `wa.me` can be derived from without
+ * guessing a country, so the derivations in src/lib/contact.ts are pure string
+ * work rather than a parser. Display formatting is also derived, never stored
+ * a second time.
+ *
+ * The brochure prints only the ATS corporate switchboard. The campaign line is
+ * a client-issued sales number: it appears in no printed source, so it carries
+ * `client` provenance rather than `brochure`. It previously sat in `.env` as
+ * CONTACT_NUMBER / WHATSAPP_NUMBER — the wrong home for it, because `.env` is
+ * gitignored (a fresh clone or a CI build would have shipped dead links) and
+ * the variables were not `VITE_`-prefixed, so no client code could read them.
+ * A public sales number is content, not a secret.
  */
 export const contact = {
   corporatePhone: brochure('+911207111500', 'Printed as 0120-7111500 (corporate office).'),
-  campaignPhone: unverified<string | null>(null, 'Awaiting the dedicated campaign / tracking number.'),
-  whatsapp: unverified<string | null>(null, 'Awaiting the campaign WhatsApp number.'),
+  campaignPhone: client(
+    '+919315551280',
+    'Sales line supplied by the client (previously CONTACT_NUMBER in .env).',
+  ),
+  /**
+   * Typed `string | null` so the WhatsApp action stays conditional: if the
+   * campaign ever moves to a landline the correct behaviour is for the button
+   * to disappear, not to link to a number with no WhatsApp account behind it.
+   */
+  whatsapp: client<string | null>(
+    '+919315551280',
+    'Same line as the campaign number (previously WHATSAPP_NUMBER in .env).',
+  ),
 } as const;
 
 /**

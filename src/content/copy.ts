@@ -16,6 +16,32 @@ export const cta = {
   formSubmit: 'Send Enquiry',
 } as const;
 
+/**
+ * The two secondary contact paths. Deliberately not in `cta`: those are the
+ * conversion ladder, and Call and WhatsApp sit beside it, not on it.
+ *
+ * The labels are the accessible names for icon-only controls, so they name the
+ * project rather than the verb — "Call" alone tells a screen-reader user
+ * nothing about who they are calling.
+ */
+export const contactActions = {
+  call: {
+    label: 'Call',
+    ariaLabel: 'Call ATS Kingston Heath',
+  },
+  whatsapp: {
+    label: 'WhatsApp',
+    ariaLabel: 'Chat with ATS Kingston Heath on WhatsApp',
+    /**
+     * Prefilled into the WhatsApp composer. States only what the visitor is
+     * enquiring about — no offer, no price, nothing the page cannot support.
+     */
+    prefill: 'Hello, I would like to know more about ATS Kingston Heath, Sector 150, Noida.',
+  },
+  /** Introduces the pair in the footer. */
+  footerHeading: 'Speak to the sales team',
+} as const;
+
 export const nav = [
   { id: 'overview', label: 'Overview' },
   { id: 'residences', label: 'Residences' },

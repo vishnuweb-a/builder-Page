@@ -14,6 +14,12 @@ export type Provenance =
   | 'brochure'
   /** Stated in docs/prd.md or docs/design.md. Marketing-owned copy. */
   | 'docs'
+  /**
+   * Supplied directly by the client for this campaign — a sales line, a
+   * tracking number, an inbox. Not in the brochure and not in our docs, but
+   * authoritative: only the client can issue it. Publishable.
+   */
+  | 'client'
   /** Not yet confirmed against a primary source. Must not be published. */
   | 'unverified';
 
@@ -33,6 +39,13 @@ export const brochure = <T>(value: T, note?: string): Fact<T> => ({
 export const docs = <T>(value: T, note?: string): Fact<T> => ({
   value,
   source: 'docs',
+  note,
+});
+
+/** Issued by the client. A note recording who supplied it is mandatory. */
+export const client = <T>(value: T, note: string): Fact<T> => ({
+  value,
+  source: 'client',
   note,
 });
 
