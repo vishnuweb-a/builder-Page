@@ -19,7 +19,7 @@ import {
 
 export type LeadFormStatus = 'idle' | 'submitting' | 'error';
 
-const EMPTY: LeadEnquiry = { name: '', email: '', message: '' };
+const EMPTY: LeadEnquiry = { name: '', phone: '', email: '', message: '' };
 
 interface LeadFormProps {
   /** Called once the provider confirms acceptance. The drawer shows the success state. */
@@ -34,10 +34,11 @@ interface LeadFormProps {
 /**
  * The enquiry form.
  *
- * Three fields, held in component state and nowhere else. Nothing is written to
+ * Four fields, held in component state and nowhere else. Nothing is written to
  * localStorage, sessionStorage, a cookie or an analytics queue, and nothing the
  * visitor types is ever logged — the data exists in memory for as long as they
- * are looking at it, and then it is gone.
+ * are looking at it, and then it is gone. That matters more now than it did at
+ * three fields: a name beside a phone number is the part a leak would hurt.
  *
  * Validation runs on submit. After that first attempt a field re-validates as
  * it is edited, so an error clears the moment it is fixed. Validating before
@@ -147,6 +148,25 @@ export function LeadForm({ onSuccess, submit = submitLeadViaWeb3Forms }: LeadFor
             onChange={(e) => setField('name', e.target.value)}
             placeholder={leadForm.fields.name.placeholder}
             autoComplete="name"
+            enterKeyHint="next"
+          />
+        </Field>
+
+        {/*
+          Phone sits directly after the name because it is how this team
+          actually follows a lead up. `type="tel"` rather than `type="number"`:
+          a number input strips a leading +, rejects spaces, and attaches a
+          spinner to a phone number.
+        */}
+        <Field label={leadForm.fields.phone.label} required error={errors.phone}>
+          <Input
+            name="phone"
+            type="tel"
+            value={values.phone}
+            onChange={(e) => setField('phone', e.target.value)}
+            placeholder={leadForm.fields.phone.placeholder}
+            autoComplete="tel"
+            inputMode="tel"
             enterKeyHint="next"
           />
         </Field>

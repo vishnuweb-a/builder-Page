@@ -8,9 +8,11 @@
  * its field names, or its response shape.
  */
 
-/** Exactly the three fields the form collects. Nothing else is gathered. */
+/** Exactly the four fields the form collects. Nothing else is gathered. */
 export interface LeadEnquiry {
   readonly name: string;
+  /** As typed, trimmed. Never reformatted — see the note in validation.ts. */
+  readonly phone: string;
   readonly email: string;
   readonly message: string;
 }

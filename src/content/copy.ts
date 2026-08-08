@@ -235,12 +235,12 @@ export const sections = {
  * The enquiry drawer.
  *
  * NOTE ON SCOPE. docs/prd.md §11 specifies five fields — name, mobile,
- * configuration, preferred date, preferred time. The form actually built asks
- * for three: name, email and message. That is a deliberate later decision, not
- * an oversight: the page is buying traffic that has never heard of the project,
- * and asking a stranger to commit to a Saturday afternoon before they have
- * spoken to anyone is the highest-friction question on the page. The scheduling
- * fields belong in the conversation the team has after this form, and
+ * configuration, preferred date, preferred time. The form asks for four: name,
+ * phone, email and message. The scheduling and configuration questions are
+ * deliberately absent: the page is buying traffic that has never heard of the
+ * project, and asking a stranger to commit to a Saturday afternoon before they
+ * have spoken to anyone is the highest-friction question on the page. Those
+ * belong in the conversation the team has after this form, and
  * `configurationOptions` in residences.ts is kept ready for the day the brief
  * calls for them again.
  *
@@ -257,6 +257,7 @@ export const leadForm = {
 
   fields: {
     name: { label: 'Name', placeholder: 'Your name' },
+    phone: { label: 'Phone', placeholder: 'Your contact number' },
     email: { label: 'Email', placeholder: 'Your email' },
     message: { label: 'Message', placeholder: 'How can we help you?' },
   },
@@ -270,6 +271,10 @@ export const leadForm = {
    */
   errors: {
     name: 'Please enter your name.',
+    phoneRequired: 'Please enter a contact number.',
+    /** Names the expected shape, and says the international form is fine too. */
+    phoneInvalid:
+      'Please enter a valid 10-digit mobile number, or include your country code (for example +971).',
     emailRequired: 'Please enter your email address.',
     emailInvalid: 'Please enter a valid email address, like name@example.com.',
     message: 'Please tell us what you would like to know.',

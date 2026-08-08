@@ -74,6 +74,7 @@ export const submitLeadViaWeb3Forms: SubmitLead = async (
     subject: leadForm.emailSubject,
     from_name: leadForm.emailFromName,
     name: enquiry.name,
+    phone: enquiry.phone,
     email: enquiry.email,
     message: enquiry.message,
   });
