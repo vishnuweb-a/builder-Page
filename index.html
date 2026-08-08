@@ -9,10 +9,31 @@
       name="description"
       content="ATS Kingston Heath, Sector 150, Noida. 3 & 4 BHK residences alongside a golf course. Book a private site visit."
     />
-    <!-- Suppresses the default /favicon.ico request until the ATS marks are
-         supplied. Inventing a brand mark here would be worse than no icon. -->
-    <link rel="icon" href="data:," />
-    <!-- Phase 1 foundation: SEO/OG tags, real favicons and analytics are added in later phases. -->
+    <!-- The ATS mark, supplied as a 1280×668 JPEG on a flattened black ground.
+         The black was keyed out to alpha and the diamond cropped square: the
+         "ATS" wordmark and the strapline are illegible at 16px, so the icon is
+         the mark alone. Source of truth: src/assets/icons/LOGO.jpeg. -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Share cards. og:image is the full lockup rather than the icon crop —
+         a link preview has room for the wordmark. The URLs are relative
+         because the production origin is not settled yet; set og:url and make
+         these absolute before this page is submitted anywhere that caches
+         previews (WhatsApp and LinkedIn both require absolute URLs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ATS Infrastructure" />
+    <meta property="og:title" content="ATS Kingston Heath — Sector 150, Noida" />
+    <meta property="og:image" content="/og-logo.png" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="668" />
+    <meta property="og:image:alt" content="ATS Infrastructure — the better way home." />
+    <meta
+      property="og:description"
+      content="ATS Kingston Heath, Sector 150, Noida. 3 & 4 BHK residences alongside a golf course. Book a private site visit."
+    />
+    <meta name="twitter:card" content="summary" />
+    <!-- Phase 1 foundation: remaining SEO tags and analytics are added in later phases. -->
   </head>
   <body>
     <div id="root"></div>

@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import { CTAButton } from '@/components/ui/CTAButton.tsx';
 import { Eyebrow } from '@/components/ui/Eyebrow.tsx';
+import { Logo } from '@/components/ui/Logo.tsx';
 import { HairlineRule } from '@/components/ui/HairlineRule.tsx';
 import { useDialogBehavior } from '@/components/ui/useDialogBehavior.ts';
 import { leadForm, project } from '@/content/index.ts';
@@ -95,7 +96,13 @@ export function LeadDrawer({ isOpen, onClose, placement, session }: LeadDrawerPr
           ${isOpen ? '' : 'pointer-events-none'}`}
       >
         <div className="flex items-start justify-between gap-6">
-          <Eyebrow rule>{project.locality.value}</Eyebrow>
+          {/* The mark is what tells a visitor whose form they are about to fill
+              in. It sits on a plate here because the panel is forest green and
+              the artwork's own green wordmark would vanish into it. */}
+          <div className="flex flex-col items-start gap-4">
+            <Logo plate className="h-7" />
+            <Eyebrow rule>{project.locality.value}</Eyebrow>
+          </div>
           <button
             type="button"
             onClick={onClose}

@@ -63,10 +63,44 @@ rather than a threshold, so antialiased line edges pick up no halo.
 ### Still missing
 
 - **The Kingston Heath wordmark.** It appears on the brochure cover and on the
-  location map as artwork, but no usable logo file has been supplied. The
-  header therefore sets the project name in type. Request the mark from ATS.
+  location map as artwork, but no usable *project* logo file has been supplied.
+  The header pairs the ATS corporate mark with the project name set in type.
+  Request the Kingston Heath mark from ATS.
+- **Vector ATS artwork.** See "The ATS mark" below — what was supplied is a
+  raster JPEG, and an SVG would replace four derived files with one.
 - **Interior renders.** docs/design.md §8 asks for living room, master bedroom,
   family lounge and kids' bedroom visuals. The brochure's interior photography
   is licensed stock (pp. 8–11) and is excluded. Until ATS supplies interior
   renders, the residences are communicated by drawing and dimension — which is
   honest, and is why the floor-plan dialog matters as much as it does.
+
+## The ATS mark
+
+`icons/LOGO.jpeg` is the file as supplied: a 1280×668 JPEG of the ATS lockup
+(diamond mark, "ATS" in forest green, "The better way home." in red) on a
+**flattened black ground**. That black is not part of the design — it is a
+transparent PNG that was saved to JPEG somewhere upstream — so it was keyed out
+to alpha rather than shipped as a black box sitting on an ivory header.
+
+Everything else is derived from it and should be regenerated, not hand-edited,
+if a better original arrives:
+
+| File | What it is |
+| --- | --- |
+| `logos/ats-logo.png` | 400×209 lockup, alpha. What `<Logo>` renders. |
+| `public/og-logo.png` | 1280×668 lockup, alpha. Share cards only. |
+| `public/favicon.png` | 256×256, diamond mark only. |
+| `public/apple-touch-icon.png` | 180×180, same crop. |
+
+Two constraints follow from the artwork itself and are worth knowing before
+placing it anywhere new:
+
+1. **It cannot go directly on `--forest`.** The wordmark is forest green and
+   the strapline is red; both die against the dark ground. `<Logo plate>`
+   sets it on ivory instead. Recolouring a registered corporate mark is not a
+   decision this codebase gets to make.
+2. **The favicon is the diamond alone.** The wordmark and strapline are mush
+   below about 64px, and a favicon has to survive 16.
+
+A vector original would collapse all four files into one and remove the JPEG
+noise that keeps the 400px PNG at 43kB. It has been requested.

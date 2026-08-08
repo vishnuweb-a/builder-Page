@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Container } from './Container.tsx';
 import { ContactActions } from '@/components/ui/ContactActions.tsx';
 import { CTAButton } from '@/components/ui/CTAButton.tsx';
+import { Logo } from '@/components/ui/Logo.tsx';
 import { useLeadDrawer } from '@/components/lead/LeadDrawerContext.ts';
 import { cta, nav, project } from '@/content/index.ts';
 import { cx } from '@/lib/cx.ts';
@@ -64,27 +65,48 @@ export function Header() {
           scrolled ? 'py-3 lg:py-4' : 'py-5 lg:py-7',
         )}
       >
-        {/* Wordmark */}
+        {/*
+          Wordmark. One link, two renderings of the same thing.
+
+          Below `lg` it is the ATS mark; from `lg` up it is the project name set
+          in type, exactly as before. The two never appear together, and that is
+          a measurement rather than a taste: from 1024 up the right rail alone
+          runs 861px of nav, contact targets and CTA against a 1160px content
+          box, so a 61px mark beside a ~215px name pushes the name into its own
+          ellipsis. Below `lg` the nav is hidden and the 375px content box has
+          no room for two lines of type either — but it has room for the mark,
+          which is also the stronger brand signal on a phone.
+
+          `aria-label` on the link keeps the accessible name identical in both,
+          so the swap is purely visual.
+        */}
         <a
           href="#overview"
+          aria-label={`${project.name}, ${project.locality.value} — back to top`}
           className={cx(
-            'flex min-w-0 flex-col gap-1 no-underline transition-colors duration-500',
+            'flex min-w-0 items-center no-underline transition-colors duration-500',
             scrolled ? 'text-ivory' : 'text-charcoal',
           )}
         >
-          {/* `truncate` is a safety net, not a layout choice: it should never
-              fire at the four target widths, but if a future label grows it
-              ellipsizes here instead of scrolling the whole page sideways. */}
-          <span className="t-h3 truncate leading-none font-semibold tracking-tight">
-            {project.name}
-          </span>
-          <span
-            className={cx(
-              't-eyebrow truncate text-[0.625rem]',
-              scrolled ? 'text-gold' : 'text-charcoal/55',
-            )}
-          >
-            {project.locality.value}
+          {/* The plate only reads as a plate once the bar turns green; over the
+              hero it is the same ivory as the page behind it. */}
+          <Logo plate={scrolled} className="h-8" containerClassName="lg:hidden" />
+
+          <span aria-hidden="true" className="hidden min-w-0 flex-col gap-1 lg:flex">
+            {/* `truncate` is a safety net, not a layout choice: it should never
+                fire at the four target widths, but if a future label grows it
+                ellipsizes here instead of scrolling the whole page sideways. */}
+            <span className="t-h3 truncate leading-none font-semibold tracking-tight">
+              {project.name}
+            </span>
+            <span
+              className={cx(
+                't-eyebrow truncate text-[0.625rem]',
+                scrolled ? 'text-gold' : 'text-charcoal/55',
+              )}
+            >
+              {project.locality.value}
+            </span>
           </span>
         </a>
 
