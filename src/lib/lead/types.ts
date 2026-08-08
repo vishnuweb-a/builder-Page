@@ -8,13 +8,19 @@
  * its field names, or its response shape.
  */
 
-/** Exactly the four fields the form collects. Nothing else is gathered. */
+/**
+ * Exactly two fields. Nothing else is gathered.
+ *
+ * The form used to ask for a name, a phone number, an email address and a
+ * message. It now asks who you are and how to reach you — the minimum a sales
+ * team can actually act on, and nothing beyond it. No email, no message, no
+ * configuration, no preferred date: every additional question on an ad landing
+ * page is a place for the visitor to stop.
+ */
 export interface LeadEnquiry {
   readonly name: string;
   /** As typed, trimmed. Never reformatted — see the note in validation.ts. */
   readonly phone: string;
-  readonly email: string;
-  readonly message: string;
 }
 
 /**

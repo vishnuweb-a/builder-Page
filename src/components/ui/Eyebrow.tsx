@@ -14,7 +14,7 @@ interface EyebrowProps {
  */
 export function Eyebrow({ children, rule = false, className }: EyebrowProps) {
   return (
-    <p className={cx('t-eyebrow flex items-center gap-4 text-gold', className)}>
+    <p className={cx('t-eyebrow flex items-center gap-4 text-accent', className)}>
       {rule && <span aria-hidden="true" className="h-px w-10 shrink-0 bg-gold" />}
       <span>{children}</span>
     </p>

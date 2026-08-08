@@ -52,10 +52,10 @@ export function Developer() {
                 {copy.lead}
               </p>
               <HairlineRule tone="gold" className="w-20" />
-              <p data-reveal-up className="t-body text-ivory/65">
+              <p data-reveal-up className="t-body text-ivory/75">
                 {copy.body}
               </p>
-              <p data-reveal-up className="t-eyebrow text-gold">
+              <p data-reveal-up className="t-eyebrow text-accent">
                 {developer.group.value}
               </p>
             </div>
@@ -68,12 +68,12 @@ export function Developer() {
                 run three lines and read as a headline rather than as a figure. */}
             <div className="flex max-w-xs flex-col gap-2">
               <span className="t-h3 text-ivory">{trackRecord.regions.join(' · ')}</span>
-              <span className="t-eyebrow text-ivory/50">{copy.regionsLabel}</span>
+              <span className="t-eyebrow text-ivory/75">{copy.regionsLabel}</span>
             </div>
           </div>
 
           <div className="flex flex-col gap-8">
-            <h3 className="t-eyebrow text-ivory/50">{copy.listLabel}</h3>
+            <h3 className="t-eyebrow text-ivory/75">{copy.listLabel}</h3>
             <ul
               data-projects
               className="m-0 grid list-none grid-cols-1 gap-x-12 gap-y-5 p-0 md:grid-cols-2 lg:grid-cols-3"
@@ -81,11 +81,11 @@ export function Developer() {
               {delivered.value.map((item) => (
                 <li key={`${item.name}-${item.location}`} className="flex flex-col gap-1">
                   <span className="t-small text-ivory/85">{item.name}</span>
-                  <span className="t-fine text-ivory/45">{item.location}</span>
+                  <span className="t-fine text-ivory/75">{item.location}</span>
                 </li>
               ))}
             </ul>
-            <p className="t-fine text-ivory/45">{copy.reraNote}</p>
+            <p className="t-fine text-ivory/75">{copy.reraNote}</p>
           </div>
         </Container>
       </div>

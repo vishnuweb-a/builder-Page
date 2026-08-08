@@ -71,7 +71,7 @@ export function Location() {
                 <blockquote className="m-0">
                   <p className="t-small text-charcoal/75">“{positioning.value}”</p>
                 </blockquote>
-                <figcaption className="t-fine text-charcoal/45">
+                <figcaption className="t-fine text-charcoal/65">
                   Sector 150, as described in the {project.name} brochure. The green-cover figure
                   describes the sector, not this project.
                 </figcaption>
@@ -84,7 +84,7 @@ export function Location() {
             {/* `disclaimers.sitePlan` is deliberately not repeated here: it
                 covers the campus layout, and its "map not to scale" clause is
                 already said once, in the caption. */}
-            <figcaption className="t-fine text-charcoal/45">
+            <figcaption className="t-fine text-charcoal/65">
               {copy.mapCaption} {images.locationMap.credit}.
             </figcaption>
           </figure>
@@ -95,7 +95,7 @@ export function Location() {
             {landmarks.map((category) => (
               <div key={category.id} className="flex flex-col gap-5">
                 <HairlineRule tone="gold" className="w-8" />
-                <h3 className="t-eyebrow text-charcoal/50">{category.title}</h3>
+                <h3 className="t-eyebrow text-charcoal/65">{category.title}</h3>
                 <ul className="m-0 flex list-none flex-col gap-2 p-0">
                   {category.items.map((item) => (
                     <li key={item} className="t-small text-charcoal/75">
@@ -107,8 +107,8 @@ export function Location() {
             ))}
           </div>
 
-          <div className="flex flex-col gap-6 border-t border-stone pt-10 md:flex-row md:items-start md:justify-between">
-            <p className="t-fine max-w-xl text-charcoal/50">{copy.noTravelTimes}</p>
+          <div className="flex flex-col gap-6 border-t border-sage-line/40 pt-10 md:flex-row md:items-start md:justify-between">
+            <p className="t-fine max-w-xl text-charcoal/65">{copy.noTravelTimes}</p>
             <CTAButton onClick={() => open('location')} className="shrink-0">
               {cta.primary}
             </CTAButton>

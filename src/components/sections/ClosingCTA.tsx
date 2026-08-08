@@ -31,7 +31,7 @@ export function ClosingCTA() {
   });
 
   return (
-    <Section id="visit" tone="ivory" rhythm="large" label="Book a site visit">
+    <Section id="visit" tone="mist" rhythm="large" label="Book a site visit">
       <div ref={ref}>
         <Container className="flex flex-col items-start gap-10">
           <div data-reveal-up>
@@ -40,7 +40,7 @@ export function ClosingCTA() {
 
           <div data-reveal-up className="flex flex-col gap-3">
             <p className="t-h3 text-forest">{project.name}</p>
-            <p className="t-eyebrow text-charcoal/50">
+            <p className="t-eyebrow text-charcoal/65">
               {project.sector} · {project.city}
             </p>
           </div>
@@ -59,7 +59,7 @@ export function ClosingCTA() {
             <CTAButton size="lg" onClick={() => open('closing')}>
               {cta.primary}
             </CTAButton>
-            <p className="t-small text-charcoal/50">{sections.closing.invitation}</p>
+            <p className="t-small text-charcoal/65">{sections.closing.invitation}</p>
           </div>
         </Container>
       </div>

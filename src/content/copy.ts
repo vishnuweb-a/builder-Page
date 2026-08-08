@@ -50,10 +50,28 @@ export const nav = [
   { id: 'developer', label: 'ATS' },
 ] as const;
 
-/** docs/design.md §10. */
+/**
+ * The first viewport.
+ *
+ * The headline is the invitation rather than the brand line, because the form
+ * now sits in the first screen and the two have to read as one sentence: an
+ * editorial headline above an enquiry field asks the visitor to hold two ideas
+ * at once. The brand line it replaced is not lost — it opens the Promise
+ * section immediately below, which is where it always did its work.
+ *
+ * `support` is written to the content rules in this file: the project is
+ * ADJACENT to a golf course, so the line names the residences, the greens and
+ * the surroundings and lets the Lifestyle section state the relationship
+ * precisely. No price, no travel time, no possession date, and no promise that
+ * a visit is confirmed.
+ */
 export const hero = {
   eyebrow: 'Sector 150 · Noida',
-  headline: 'Your family deserves more space.',
+  headline: 'Book your private site visit.',
+  support:
+    'Experience the residences, the greens and the surroundings of ATS Kingston Heath, Sector 150, Noida.',
+  /** The brand line, kept for the Promise opener. */
+  brandline: 'Your family deserves more space.',
   subhead: 'More green. More life.',
 } as const;
 
@@ -258,34 +276,40 @@ export const sections = {
 } as const;
 
 /**
- * The enquiry drawer.
+ * The enquiry form — in the first viewport, and in the drawer.
  *
  * NOTE ON SCOPE. docs/prd.md §11 specifies five fields — name, mobile,
- * configuration, preferred date, preferred time. The form asks for four: name,
- * phone, email and message. The scheduling and configuration questions are
- * deliberately absent: the page is buying traffic that has never heard of the
- * project, and asking a stranger to commit to a Saturday afternoon before they
- * have spoken to anyone is the highest-friction question on the page. Those
- * belong in the conversation the team has after this form, and
- * `configurationOptions` in residences.ts is kept ready for the day the brief
- * calls for them again.
+ * configuration, preferred date, preferred time. The form asks for TWO: a name
+ * and a contact number. Every other question has been removed outright rather
+ * than hidden, made optional or collapsed behind a disclosure.
  *
- * The heading is "Get in touch" rather than "Book a Private Site Visit"
- * because the form no longer books anything — it opens a conversation. The
- * section CTAs still say "Book a Private Site Visit", so the intro line names
- * the site visit explicitly and the two read as one thought.
+ * That is a deliberate campaign decision, not an oversight. This page buys
+ * traffic from people who have never heard of the project; the form is the
+ * first thing they see, and its only job is to convert curiosity into a lead
+ * the sales team can actually ring. Who you are and how to reach you is that
+ * minimum. A configuration question, a preferred Saturday, or a message box
+ * asked of a stranger in the first three seconds is a reason to close the tab.
+ * `configurationOptions` in residences.ts is kept ready for the day the brief
+ * calls for those questions again.
+ *
+ * The heading is the invitation itself — "Book your private site visit" — with
+ * a short line beneath it that says how little is being asked for, so nobody
+ * scrolls looking for the rest of the form.
  */
 export const leadForm = {
-  title: 'Get in touch',
-  intro:
-    'Tell us what you would like to know about ATS Kingston Heath — including arranging a private site visit — and our team will come back to you.',
+  /**
+   * The form's own heading, used by the first-viewport panel and by the drawer.
+   * The first viewport's h1 carries the long form of the same invitation
+   * ("Book your private site visit."), so this is the short one — the two sit
+   * inches apart there and must not read as the same line twice.
+   */
+  formTitle: 'Book your site visit',
+  intro: 'Leave your name and number, and our team will get in touch to arrange your visit.',
   privacy: 'Your details are used only to respond to your enquiry.',
 
   fields: {
     name: { label: 'Name', placeholder: 'Your name' },
-    phone: { label: 'Phone', placeholder: 'Your contact number' },
-    email: { label: 'Email', placeholder: 'Your email' },
-    message: { label: 'Message', placeholder: 'How can we help you?' },
+    phone: { label: 'Contact number', placeholder: 'Your contact number' },
   },
 
   /**
@@ -301,9 +325,6 @@ export const leadForm = {
     /** Names the expected shape, and says the international form is fine too. */
     phoneInvalid:
       'Please enter a valid 10-digit mobile number, or include your country code (for example +971).',
-    emailRequired: 'Please enter your email address.',
-    emailInvalid: 'Please enter a valid email address, like name@example.com.',
-    message: 'Please tell us what you would like to know.',
   },
 
   submit: 'Send Enquiry',

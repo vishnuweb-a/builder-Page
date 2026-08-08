@@ -18,7 +18,7 @@ export function Metric({ value, label, className }: MetricProps) {
   return (
     <div className={cx('flex flex-col gap-2', className)}>
       <span className="t-numeral text-forest [.surface-dark_&]:text-ivory">{value}</span>
-      <span className="t-eyebrow text-charcoal/50 [.surface-dark_&]:text-ivory/50">{label}</span>
+      <span className="t-eyebrow text-charcoal/65 [.surface-dark_&]:text-ivory/75">{label}</span>
     </div>
   );
 }

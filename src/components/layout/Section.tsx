@@ -1,10 +1,21 @@
 import type { ReactNode } from 'react';
 import { cx } from '@/lib/cx.ts';
 
-export type SectionTone = 'ivory' | 'raised' | 'forest' | 'charcoal';
+export type SectionTone = 'mist' | 'sage' | 'ivory' | 'raised' | 'forest' | 'charcoal';
 export type SectionRhythm = 'default' | 'large' | 'flush';
 
+/**
+ * Six surfaces, running light green → warm paper → green → ink.
+ *
+ * The two green grounds are what keep the light palette from flattening: a page
+ * that is one green everywhere has no depth, and a page that alternates only
+ * between two ivories has lost the direction it was supposed to take. `mist` is
+ * the page ground itself, so a section using it sits flush with the body and
+ * reads as continuous space rather than as another band.
+ */
 const tones: Record<SectionTone, string> = {
+  mist: 'bg-sage-mist text-charcoal',
+  sage: 'bg-sage text-charcoal',
   ivory: 'bg-ivory text-charcoal',
   raised: 'bg-ivory-raised text-charcoal',
   forest: 'surface-dark bg-forest text-ivory',

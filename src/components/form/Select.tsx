@@ -52,7 +52,7 @@ export function Select({ options, placeholder, className, ...props }: SelectProp
       <svg
         aria-hidden="true"
         viewBox="0 0 12 8"
-        className="pointer-events-none absolute right-1 bottom-5 h-2 w-3 fill-none stroke-current stroke-[1.25] text-charcoal/50 [.surface-dark_&]:text-ivory/50"
+        className="pointer-events-none absolute right-1 bottom-5 h-2 w-3 fill-none stroke-current stroke-[1.25] text-charcoal/65 [.surface-dark_&]:text-ivory/75"
       >
         <path d="M1 1.5 6 6.5 11 1.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>

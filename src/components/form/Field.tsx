@@ -31,17 +31,17 @@ export function Field({ label, children, hint, error, required = false, classNam
   return (
     <FieldContext value={{ id, describedBy, invalid: Boolean(error), required }}>
       <div className={cx('flex flex-col gap-2', className)}>
-        <label htmlFor={id} className="t-eyebrow text-charcoal/70 [.surface-dark_&]:text-ivory/70">
+        <label htmlFor={id} className="t-eyebrow text-charcoal/70 [.surface-dark_&]:text-ivory/75">
           {label}
           {required && (
-            <span aria-hidden="true" className="ml-1 text-gold">
+            <span aria-hidden="true" className="ml-1 text-accent">
               *
             </span>
           )}
         </label>
 
         {hint && (
-          <p id={hintId} className="t-fine text-charcoal/60 [.surface-dark_&]:text-ivory/60">
+          <p id={hintId} className="t-fine text-charcoal/65 [.surface-dark_&]:text-ivory/75">
             {hint}
           </p>
         )}
@@ -52,7 +52,7 @@ export function Field({ label, children, hint, error, required = false, classNam
           <p
             id={errorId}
             role="alert"
-            className="t-small flex items-start gap-1.5 text-danger [.surface-dark_&]:text-gold"
+            className="t-small flex items-start gap-1.5 text-danger [.surface-dark_&]:text-gold-lift"
           >
             <span aria-hidden="true">↳</span>
             <span>{error}</span>

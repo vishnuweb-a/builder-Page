@@ -47,13 +47,13 @@ export function Lifestyle() {
                 {sections.lifestyle.lead}
               </p>
               <HairlineRule tone="gold" className="w-20" />
-              <p data-reveal-up className="t-body text-ivory/65">
+              <p data-reveal-up className="t-body text-ivory/75">
                 {sections.lifestyle.body}
               </p>
 
               <div data-reveal-up className="flex flex-col gap-3 border-l border-gold/40 pl-6">
-                <p className="t-eyebrow text-gold">{golf.value.phrasing}</p>
-                <p className="t-small text-ivory/60">
+                <p className="t-eyebrow text-accent">{golf.value.phrasing}</p>
+                <p className="t-small text-ivory/75">
                   {golf.value.nearbyFacility} is among the recreation in the surrounding sector.
                   Kingston Heath sits {golf.value.relationship} to it and does not include a golf
                   course of its own.

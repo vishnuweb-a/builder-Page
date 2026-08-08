@@ -64,7 +64,7 @@ export function Figure({
       </div>
 
       {showCredit && (
-        <figcaption className="t-fine mt-3 text-charcoal/45 [.surface-dark_&]:text-ivory/45">
+        <figcaption className="t-fine mt-3 text-charcoal/65 [.surface-dark_&]:text-ivory/75">
           {asset.credit} · artist’s impression
         </figcaption>
       )}

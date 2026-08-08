@@ -19,13 +19,17 @@ const variants: Record<CTAVariant, string> = {
     'disabled:bg-stone disabled:text-charcoal/45',
   ),
   /**
-   * For use ON the deep green — a forest button on a forest bar would vanish.
-   * Forest-on-champagne measures 4.8:1, so the label stays AA at 13px.
-   * Defined as its own variant rather than as overrides on `primary`: two
-   * competing text-colour utilities resolve by stylesheet order, not by intent,
-   * and that quietly shipped ivory-on-gold at 2.1:1.
+   * For use ON green — a forest button on a forest bar would vanish.
+   *
+   * The label is charcoal, not forest. It was forest while the green was
+   * #12382D, where forest-on-champagne measured 4.8:1; the lighter green in
+   * this palette drops that pairing to 2.8:1, which is a failure at 13px.
+   * Charcoal-on-champagne is 7.1:1 and is the same ink the page uses for type
+   * everywhere else. Defined as its own variant rather than as overrides on
+   * `primary`: two competing text-colour utilities resolve by stylesheet order,
+   * not by intent, and that quietly shipped ivory-on-gold at 2.1:1 once before.
    */
-  gold: cx('bg-gold text-forest', 'hover:bg-gold/85', 'disabled:bg-stone disabled:text-charcoal/45'),
+  gold: cx('bg-gold text-charcoal', 'hover:bg-gold/85', 'disabled:bg-stone disabled:text-charcoal/45'),
   secondary: cx(
     'bg-transparent text-charcoal border border-charcoal/25',
     'hover:border-charcoal/60',

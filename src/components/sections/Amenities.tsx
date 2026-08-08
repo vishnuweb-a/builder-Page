@@ -29,12 +29,12 @@ function FeatureRun({ items }: { items: readonly string[] }) {
   return (
     <ul className="m-0 flex list-none flex-wrap items-center gap-x-3 gap-y-2 p-0">
       {items.map((item, i) => (
-        <li key={item} className="t-small flex items-center gap-3 text-charcoal/60">
+        <li key={item} className="t-small flex items-center gap-3 text-charcoal/65">
           {item}
           {/* Separator trails its item rather than leading the next one, so a
               wrapped line never begins with a floating interpunct. */}
           {i < items.length - 1 && (
-            <span aria-hidden="true" className="text-gold">
+            <span aria-hidden="true" className="text-accent">
               ·
             </span>
           )}
@@ -82,7 +82,7 @@ export function Amenities() {
   });
 
   return (
-    <Section id="amenities" tone="raised" rhythm="large" label="Amenities and campus">
+    <Section id="amenities" tone="sage" rhythm="large" label="Amenities and campus">
       <div ref={ref}>
         <Container className="flex flex-col gap-block lg:gap-24">
           <header className="grid gap-block lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-24">
@@ -126,7 +126,7 @@ export function Amenities() {
           */}
           <figure className="m-0 flex flex-col gap-5">
             <Figure asset={images.sitePlan} sizes="(min-width: 64rem) 62rem, 92vw" className="mx-auto w-full max-w-4xl" />
-            <figcaption className="t-fine mx-auto flex max-w-4xl flex-col gap-1 text-charcoal/45">
+            <figcaption className="t-fine mx-auto flex max-w-4xl flex-col gap-1 text-charcoal/65">
               <span>
                 {images.sitePlan.credit} · {amenities.legendNote(legendItemCount.value)}
               </span>
@@ -162,8 +162,8 @@ export function Amenities() {
             />
           </div>
 
-          <div className="flex flex-col gap-6 border-t border-stone pt-10 md:flex-row md:items-center md:justify-between">
-            <p className="t-fine max-w-lg text-charcoal/50">{disclaimers.amenities.value}</p>
+          <div className="flex flex-col gap-6 border-t border-sage-line/40 pt-10 md:flex-row md:items-center md:justify-between">
+            <p className="t-fine max-w-lg text-charcoal/65">{disclaimers.amenities.value}</p>
             <CTAButton onClick={() => open('amenities')}>{cta.primary}</CTAButton>
           </div>
         </Container>

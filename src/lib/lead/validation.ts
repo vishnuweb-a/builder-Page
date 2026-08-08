@@ -8,28 +8,16 @@ import type { LeadEnquiry } from './types.ts';
  * rules are the part worth reasoning about, and they should be readable without
  * a JSX file in the way.
  *
- * The governing principle is restraint. This form asks a family for their name
- * and a sentence; every rule beyond "did you actually type something" is a
- * chance to reject a real enquiry. So there is no name-character allow-list
- * (which breaks on apostrophes, hyphens, conjuncts and every script that is not
- * Latin), no minimum message length, and no attempt to decide whether an email
- * address "looks professional".
+ * The governing principle is restraint. The form asks two questions — who you
+ * are, and how to reach you — and every rule beyond "did you actually type
+ * something" is a chance to reject a real enquiry. The name is checked for
+ * emptiness and nothing else; the number is checked only for the mistakes
+ * people actually make.
  */
 
 export type LeadField = keyof LeadEnquiry;
 
 export type LeadErrors = Partial<Record<LeadField, string>>;
-
-/**
- * Email shape check, kept deliberately loose.
- *
- * Requires text, an @, text, a dot and text — which catches the typos people
- * actually make (missing @, trailing comma, "gmail" with no TLD) and rejects
- * nothing legitimate that a buyer in Noida is going to type. Full RFC 5322 is
- * not worth implementing: the address is verified by whether the reply arrives,
- * and a regex strict enough to be "correct" reliably rejects valid addresses.
- */
-const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /** Ten digits opening with 6–9: the Indian mobile numbering plan. */
 const INDIAN_MOBILE = /^[6-9]\d{9}$/;
@@ -73,22 +61,26 @@ function validatePhone(raw: string): string | undefined {
   return leadForm.errors.phoneInvalid;
 }
 
+/**
+ * Name.
+ *
+ * Trim, then reject empty. There is deliberately NO character allow-list: such
+ * a list breaks on apostrophes (D'Souza), hyphens (Sen-Gupta), conjuncts, and
+ * every script that is not Latin, and each rejection is a real family turned
+ * away by a regular expression. No length ceiling either.
+ */
+const validateName = (raw: string): string | undefined =>
+  raw.trim() ? undefined : leadForm.errors.name;
+
 /** Order matters: it decides which field receives focus after a failed submit. */
-export const LEAD_FIELDS: readonly LeadField[] = ['name', 'phone', 'email', 'message'];
+export const LEAD_FIELDS: readonly LeadField[] = ['name', 'phone'];
 
 export function validateField(field: LeadField, value: string): string | undefined {
-  const trimmed = value.trim();
-
   switch (field) {
     case 'name':
-      return trimmed ? undefined : leadForm.errors.name;
+      return validateName(value);
     case 'phone':
       return validatePhone(value);
-    case 'email':
-      if (!trimmed) return leadForm.errors.emailRequired;
-      return EMAIL.test(trimmed) ? undefined : leadForm.errors.emailInvalid;
-    case 'message':
-      return trimmed ? undefined : leadForm.errors.message;
   }
 }
 
@@ -102,16 +94,14 @@ export function validateEnquiry(values: LeadEnquiry): LeadErrors {
 }
 
 /**
- * Trimmed on the way out, so trailing whitespace never reaches the inbox.
+ * Trimmed on the way out, so stray whitespace never reaches the inbox.
  *
- * The phone number is trimmed and otherwise left exactly as typed. Reformatting
- * it into some canonical shape would help nobody: the sales team dials what is
- * in the email, and a "helpful" normaliser that drops a country code or invents
+ * The number is trimmed and otherwise left exactly as typed. Reformatting it
+ * into some canonical shape would help nobody: the sales team dials what is in
+ * the email, and a "helpful" normaliser that drops a country code or invents
  * one turns a reachable lead into a wrong number.
  */
 export const normalise = (values: LeadEnquiry): LeadEnquiry => ({
   name: values.name.trim(),
   phone: values.phone.trim(),
-  email: values.email.trim(),
-  message: values.message.trim(),
 });

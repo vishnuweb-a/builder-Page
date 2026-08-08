@@ -41,8 +41,8 @@ import {
 function Entry({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <dt className="t-eyebrow text-ivory/40">{label}</dt>
-      <dd className="t-fine m-0 text-ivory/70">{children}</dd>
+      <dt className="t-eyebrow text-ivory/75">{label}</dt>
+      <dd className="t-fine m-0 text-ivory/75">{children}</dd>
     </div>
   );
 }
@@ -70,7 +70,7 @@ export function RegulatoryStrip() {
         */}
         {campaignPhone && (
           <div className="flex flex-col gap-5 border-b border-ivory/12 pb-10">
-            <p className="t-eyebrow m-0 text-ivory/40">{contactActions.footerHeading}</p>
+            <p className="t-eyebrow m-0 text-ivory/75">{contactActions.footerHeading}</p>
 
             <div className="flex flex-col gap-x-12 gap-y-5 md:flex-row md:items-center md:justify-between">
               {/* The number is set, not linked. Linking it would put a second
@@ -140,16 +140,16 @@ export function RegulatoryStrip() {
         </dl>
 
         <div className="flex flex-col gap-3 border-t border-ivory/12 pt-8">
-          <p className="t-fine max-w-4xl text-ivory/45">
+          <p className="t-fine max-w-4xl text-ivory/75">
             {disclaimers.imagery.value} {disclaimers.area.value} {disclaimers.amenities.value}{' '}
             {disclaimers.sitePlan.value}
           </p>
           {/* The price disclaimer accompanies a price. There is no published
               price, so printing its disclaimer would only imply one exists. */}
           {price && (
-            <p className="t-fine max-w-4xl text-ivory/45">{pricing.disclaimer.value}</p>
+            <p className="t-fine max-w-4xl text-ivory/75">{pricing.disclaimer.value}</p>
           )}
-          <p className="t-fine text-ivory/35">
+          <p className="t-fine text-ivory/75">
             © {new Date().getFullYear()} {developer.entity.value}. {developer.tagline.value}
           </p>
         </div>

@@ -23,19 +23,39 @@ import { cx } from '@/lib/cx.ts';
  *   own scrim.)
  * • Appear on desktop. `lg:hidden`, and the header's own CTA takes over there.
  *
- * It also stays out of the way for the first screen: the hero already carries a
- * full-size CTA, and a bar that slides in on top of it is pure noise. It
- * appears once the visitor has scrolled past the hero.
+ * It also stays out of the way for the first screen, and that rule got stricter
+ * once the enquiry form moved into the first viewport: a fixed bar reading
+ * "Book a Site Visit" floating over the panel that says SEND ENQUIRY is two
+ * primary actions arguing on a 375px screen.
+ *
+ * So the trigger is the panel itself rather than a scroll distance. The bar
+ * appears only once #enquiry has left the viewport entirely — which is exactly
+ * the moment it stops being duplication and starts being useful. A scroll
+ * threshold cannot express that: 85% of the viewport height still leaves the
+ * form on screen on a tall phone, and overshoots it on a short one.
  */
 export function MobileCTABar() {
   const { open, isOpen } = useLeadDrawer();
   const [past, setPast] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setPast(window.scrollY > window.innerHeight * 0.85);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    const panel = document.getElementById('enquiry');
+
+    // Fallback for any page that renders this bar without the panel. Keeps the
+    // bar working rather than pinning it permanently hidden or permanently on.
+    if (!panel) {
+      const onScroll = () => setPast(window.scrollY > window.innerHeight);
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      return () => window.removeEventListener('scroll', onScroll);
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setPast(!entry.isIntersecting),
+      { threshold: 0 },
+    );
+    observer.observe(panel);
+    return () => observer.disconnect();
   }, []);
 
   const shown = past && !isOpen;

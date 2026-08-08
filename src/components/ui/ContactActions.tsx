@@ -97,8 +97,8 @@ const base = cx(
   'transition-colors duration-[var(--dur-fast)] ease-[var(--ease-out)]',
   // Light ground (transparent header over the hero); ivory once the surface is
   // dark, which covers both the scrolled header and the footer.
-  'text-charcoal/60 hover:text-charcoal',
-  '[.surface-dark_&]:text-ivory/70 [.surface-dark_&]:hover:text-ivory',
+  'text-charcoal/65 hover:text-charcoal',
+  '[.surface-dark_&]:text-ivory/75 [.surface-dark_&]:hover:text-ivory',
 );
 
 const appearances: Record<ContactAppearance, string> = {

@@ -27,7 +27,7 @@ interface FormContainerProps extends Omit<FormHTMLAttributes<HTMLFormElement>, '
  */
 export function FormContainer({ children, className, ...props }: FormContainerProps) {
   return (
-    <form noValidate {...props} className={cx('flex flex-col gap-7', className)}>
+    <form noValidate {...props} className={cx('flex flex-col gap-5 md:gap-7', className)}>
       {children}
     </form>
   );

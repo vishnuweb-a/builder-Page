@@ -93,7 +93,7 @@ export function FloorPlanDialog({
             <h2 id={titleId} className="t-h3 text-charcoal">
               {residence.headline}
             </h2>
-            <p className="t-fine text-charcoal/55">
+            <p className="t-fine text-charcoal/65">
               {residence.label} · {formatNumber(residence.areas.superAreaSqFt)} sq ft super area ·{' '}
               {formatNumber(residence.areas.carpetSqFt)} sq ft carpet
             </p>
@@ -102,7 +102,7 @@ export function FloorPlanDialog({
           <button
             type="button"
             onClick={onClose}
-            className="-mt-1 -mr-1 flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center text-charcoal/50 transition-colors duration-[var(--dur-fast)] hover:text-charcoal"
+            className="-mt-1 -mr-1 flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center text-charcoal/65 transition-colors duration-[var(--dur-fast)] hover:text-charcoal"
           >
             <span className="sr-only">{plans.close}</span>
             <svg viewBox="0 0 16 16" aria-hidden="true" className="h-4 w-4 stroke-current stroke-[1.25]">
@@ -148,7 +148,7 @@ export function FloorPlanDialog({
 
         <footer className="flex shrink-0 flex-col gap-3 border-t border-stone px-5 py-4 md:px-8 md:py-5">
           <HairlineRule tone="gold" className="w-12" />
-          <p id={descId} className="t-fine text-charcoal/55">
+          <p id={descId} className="t-fine text-charcoal/65">
             {plans.note} {asset.credit}. {disclaimers.area.value} {disclaimers.imagery.value}
           </p>
         </footer>

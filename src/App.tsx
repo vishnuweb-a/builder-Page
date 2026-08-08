@@ -12,13 +12,14 @@ import { ClosingCTA } from './components/sections/ClosingCTA.tsx';
 import { RegulatoryStrip } from './components/sections/RegulatoryStrip.tsx';
 
 /**
- * PHASE 3 — the complete property story.
+ * The complete property story, with the conversion at the top of it.
  *
  * The order is an argument, not a menu. Each section answers the question the
- * previous one raises, and the visitor is invited to visit at four points along
- * the way rather than at every paragraph:
+ * previous one raises — but the enquiry no longer waits for the end of the
+ * argument, because most of this page's traffic arrives from an ad and decides
+ * in the first screen:
  *
- *   Hero          what is this, and where          → CTA
+ *   Hero          what is this, where — AND THE FORM
  *   Promise       why space is the proposition
  *   Residences    what you would actually live in  → CTA
  *   Lifestyle     what is outside the window
@@ -28,9 +29,9 @@ import { RegulatoryStrip } from './components/sections/RegulatoryStrip.tsx';
  *   Closing       the invitation                   → CTA
  *   Regulatory    what you can check
  *
- * Still to come: the lead form itself, the secure submission endpoint, and
- * analytics. The drawer opens and traps focus today but cannot be submitted —
- * a form that appears to work while dropping leads is worse than none.
+ * The form is an opportunity, never a gate: every section below is reachable
+ * without submitting anything, and a visitor who does submit stays exactly
+ * where they are and can carry on reading.
  */
 export default function App() {
   return (

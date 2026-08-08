@@ -4,7 +4,7 @@ import { Figure } from '@/components/media/Figure.tsx';
 import { Eyebrow } from '@/components/ui/Eyebrow.tsx';
 import { HairlineRule } from '@/components/ui/HairlineRule.tsx';
 import { images } from '@/assets/manifest.ts';
-import { greens, sections } from '@/content/index.ts';
+import { greens, hero, sections } from '@/content/index.ts';
 import { drawRule, revealImage, revealText, revealUp, useAnimeScope } from '@/motion/index.ts';
 
 /**
@@ -35,6 +35,15 @@ export function Promise() {
               <h2 data-reveal-headline className="t-h1 text-charcoal">
                 {sections.promise.headline}
               </h2>
+              {/*
+                The brand line. It used to open the page; the first viewport now
+                opens with the invitation instead, and this is where the idea
+                belongs — beside the argument it introduces rather than above a
+                form it has nothing to do with.
+              */}
+              <p data-reveal-up className="t-h2 text-forest">
+                {hero.brandline} {hero.subhead}
+              </p>
             </div>
 
             <div className="flex flex-col gap-8 lg:pt-4">
@@ -45,7 +54,7 @@ export function Promise() {
               <p data-reveal-up className="t-body text-charcoal/70">
                 {sections.promise.body}
               </p>
-              <p data-reveal-up className="t-eyebrow text-gold">
+              <p data-reveal-up className="t-eyebrow text-accent">
                 {greens.value}
               </p>
             </div>
@@ -64,7 +73,7 @@ export function Promise() {
               <li key={aspect.title} data-reveal-up className="flex flex-col gap-4">
                 <HairlineRule tone="gold" className="w-8" />
                 <h3 className="t-h3 text-charcoal">{aspect.title}</h3>
-                <p className="t-small text-charcoal/60">{aspect.body}</p>
+                <p className="t-small text-charcoal/65">{aspect.body}</p>
               </li>
             ))}
           </ul>

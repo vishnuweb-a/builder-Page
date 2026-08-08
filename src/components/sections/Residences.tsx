@@ -88,11 +88,11 @@ function ResidenceBlock({ residence, pitch, index, onOpenPlan, reverse = false }
             aria-label={plans.triggerLabel(residence.headline)}
           >
             {plans.trigger}
-            <span aria-hidden="true" className="text-gold">
+            <span aria-hidden="true" className="text-accent">
               ↗
             </span>
           </CTAButton>
-          <p className="t-fine text-charcoal/45">{isometric.credit}</p>
+          <p className="t-fine text-charcoal/65">{isometric.credit}</p>
         </div>
       </div>
 
@@ -100,10 +100,10 @@ function ResidenceBlock({ residence, pitch, index, onOpenPlan, reverse = false }
         className={cx('flex flex-col gap-8 max-lg:order-1 lg:col-span-5', reverse && 'lg:order-1')}
       >
         <div className="flex flex-col gap-4">
-          <span className="t-eyebrow text-gold">{index}</span>
+          <span className="t-eyebrow text-accent">{index}</span>
           <h3 className="t-h2 text-balance text-charcoal">{residence.headline}</h3>
           <HairlineRule tone="gold" className="w-16" />
-          <p className="t-small text-charcoal/45">{residence.label}</p>
+          <p className="t-small text-charcoal/65">{residence.label}</p>
         </div>
 
         <p className="t-body text-charcoal/70">{pitch}</p>
@@ -124,7 +124,7 @@ function ResidenceBlock({ residence, pitch, index, onOpenPlan, reverse = false }
         <dl className="m-0 grid grid-cols-1 gap-x-10 gap-y-6 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
           {rooms.map((room) => (
             <div key={room.label} className="flex flex-col gap-1.5">
-              <dt className="t-eyebrow order-2 text-charcoal/50">
+              <dt className="t-eyebrow order-2 text-charcoal/65">
                 {room.displayLabel ?? room.label}
               </dt>
               <dd className="t-numeral order-1 m-0 text-forest">
@@ -213,8 +213,8 @@ export function Residences() {
             />
           </div>
 
-          <div className="flex flex-col gap-6 border-t border-stone pt-10 md:flex-row md:items-center md:justify-between">
-            <p className="t-fine max-w-md text-charcoal/50">
+          <div className="flex flex-col gap-6 border-t border-sage-line/40 pt-10 md:flex-row md:items-center md:justify-between">
+            <p className="t-fine max-w-md text-charcoal/65">
               {disclaimers.area.value} {disclaimers.imagery.value}
             </p>
             <CTAButton onClick={() => open('residences')}>{cta.primary}</CTAButton>

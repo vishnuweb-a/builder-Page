@@ -3,7 +3,6 @@ import { Container } from './Container.tsx';
 import { ContactActions } from '@/components/ui/ContactActions.tsx';
 import { CTAButton } from '@/components/ui/CTAButton.tsx';
 import { Logo } from '@/components/ui/Logo.tsx';
-import { useLeadDrawer } from '@/components/lead/LeadDrawerContext.ts';
 import { cta, nav, project } from '@/content/index.ts';
 import { cx } from '@/lib/cx.ts';
 
@@ -37,7 +36,6 @@ function useAssertAnchorsExist() {
  */
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
-  const { open } = useLeadDrawer();
   useAssertAnchorsExist();
 
   useEffect(() => {
@@ -102,7 +100,7 @@ export function Header() {
             <span
               className={cx(
                 't-eyebrow truncate text-[0.625rem]',
-                scrolled ? 'text-gold' : 'text-charcoal/55',
+                scrolled ? 'text-gold-lift' : 'text-charcoal/65',
               )}
             >
               {project.locality.value}
@@ -125,7 +123,7 @@ export function Header() {
                 href={`#${item.id}`}
                 className={cx(
                   't-eyebrow no-underline transition-colors duration-300',
-                  scrolled ? 'text-ivory/70 hover:text-ivory' : 'text-charcoal/60 hover:text-charcoal',
+                  scrolled ? 'text-ivory/75 hover:text-ivory' : 'text-charcoal/65 hover:text-charcoal',
                 )}
               >
                 {item.label}
@@ -148,7 +146,20 @@ export function Header() {
             />
           </div>
 
-          <CTAButton variant={scrolled ? 'gold' : 'secondary'} onClick={() => open('header')}>
+          {/*
+            The header CTA is now a link to the form, not a button that opens a
+            drawer.
+
+            The form is in the first viewport, so a drawer here would be a
+            second copy of something already on screen — and on a phone it would
+            cover the very panel the visitor was heading for. An anchor to
+            `#enquiry` scrolls to the real thing, hands keyboard focus to it (the
+            panel carries `tabIndex={-1}` for exactly that), and needs no state.
+
+            The drawer is untouched and still serves every CTA further down the
+            page, where scrolling a visitor back to the top would be worse.
+          */}
+          <CTAButton href="#enquiry" variant={scrolled ? 'gold' : 'secondary'}>
             <span className="hidden lg:inline">{cta.primaryShort}</span>
             <span className="lg:hidden">Book</span>
           </CTAButton>

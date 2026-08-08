@@ -1,5 +1,4 @@
 import { useEffect, useId, useRef, useState } from 'react';
-import { CTAButton } from '@/components/ui/CTAButton.tsx';
 import { Eyebrow } from '@/components/ui/Eyebrow.tsx';
 import { Logo } from '@/components/ui/Logo.tsx';
 import { HairlineRule } from '@/components/ui/HairlineRule.tsx';
@@ -8,6 +7,7 @@ import { leadForm, project } from '@/content/index.ts';
 import { useMediaQuery } from '@/lib/useMediaQuery.ts';
 import { drawerEnter, drawerExit, primeDrawer, useReducedMotion } from '@/motion/index.ts';
 import { LeadForm } from './LeadForm.tsx';
+import { LeadSuccess } from './LeadSuccess.tsx';
 import type { CTAPlacement } from './LeadDrawerContext.ts';
 
 interface LeadDrawerProps {
@@ -107,7 +107,7 @@ export function LeadDrawer({ isOpen, onClose, placement, session }: LeadDrawerPr
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="-mt-2 -mr-2 flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center text-ivory/60 transition-colors duration-[var(--dur-fast)] hover:text-ivory"
+            className="-mt-2 -mr-2 flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center text-ivory/75 transition-colors duration-[var(--dur-fast)] hover:text-ivory"
           >
             <svg viewBox="0 0 16 16" aria-hidden="true" className="h-4 w-4 stroke-current stroke-[1.25]">
               <path d="M2 2 14 14M14 2 2 14" strokeLinecap="round" />
@@ -143,53 +143,20 @@ function LeadDrawerBody({ titleId, onClose }: { titleId: string; onClose: () => 
     <>
       <div className="flex flex-col gap-5">
         <h2 id={titleId} className="t-h2 text-ivory">
-          {leadForm.title}
+          {leadForm.formTitle}
         </h2>
         <HairlineRule tone="gold" className="w-16" />
         <p className="t-body-lg text-ivory/75">{leadForm.intro}</p>
       </div>
 
-      <LeadForm onSuccess={() => setSent(true)} />
+      {/*
+        The same <LeadForm> the first viewport renders — one field, one
+        implementation, one provider call. Only the submit fill differs, because
+        a forest button on a forest panel would disappear.
+      */}
+      <LeadForm submitVariant="gold" onSuccess={() => setSent(true)} />
 
-      <p className="t-fine text-ivory/50">{leadForm.privacy}</p>
+      <p className="t-fine text-ivory/75">{leadForm.privacy}</p>
     </>
-  );
-}
-
-/**
- * The confirmation.
- *
- * It takes focus on mount, for two reasons. The obvious one is that the button
- * focus was on has just been unmounted, and leaving focus on <body> breaks the
- * dialog's keyboard trap. The less obvious one is that moving focus to a
- * container holding the new heading is what makes a screen reader announce the
- * outcome at all — the form did not navigate anywhere, so nothing else would.
- *
- * The wording promises only that someone will be in touch. No callback window,
- * no reference number, no "your visit is confirmed" — nothing has been
- * confirmed, and a landing page that says otherwise is lying on the developer's
- * behalf at the exact moment it has earned some trust.
- */
-function LeadSuccess({ titleId, onClose }: { titleId: string; onClose: () => void }) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    ref.current?.focus();
-  }, []);
-
-  return (
-    <div ref={ref} tabIndex={-1} className="flex flex-col gap-6 outline-none">
-      <h2 id={titleId} className="t-h2 text-ivory">
-        {leadForm.successTitle}
-      </h2>
-
-      <HairlineRule tone="gold" className="w-16" />
-
-      <p className="t-body-lg text-ivory/75">{leadForm.successBody}</p>
-
-      <CTAButton variant="secondary" onClick={onClose} className="mt-2 self-start">
-        {leadForm.successClose}
-      </CTAButton>
-    </div>
   );
 }

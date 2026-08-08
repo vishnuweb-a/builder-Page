@@ -11,8 +11,8 @@ import type { LeadEnquiry, SubmitLead, SubmitResult } from './types.ts';
  * import, not a rebuild of the drawer.
  *
  * Why no backend: the page is static and ad-funded, and a Node process whose
- * only job is to relay three fields to an inbox is a server to patch, monitor
- * and pay for. Web3Forms accepts the post directly from the browser.
+ * only job is to relay a name to an inbox is a server to patch, monitor and
+ * pay for. Web3Forms accepts the post directly from the browser.
  */
 
 const ENDPOINT = 'https://api.web3forms.com/submit';
@@ -37,10 +37,10 @@ const isResponseBody = (value: unknown): value is Web3FormsResponse =>
  * Development-only diagnostics.
  *
  * The rule this exists to enforce: NOTHING the visitor typed is ever passed
- * here. Not the name, not the email, not the message — not even truncated, and
- * not "just while debugging". A console entry is copied into bug reports and
- * screenshots, and their name and email are their data, not ours. Only the
- * failure reason and the provider's own message are logged, and only in dev.
+ * here. Not the name — not even truncated, and not "just while debugging". A
+ * console entry is copied into bug reports and screenshots, and their name is
+ * their data, not ours. Only the failure reason and the provider's own message
+ * are logged, and only in dev.
  */
 function warn(detail: string): void {
   if (import.meta.env.DEV) console.warn(`[lead] ${detail}`);
@@ -67,6 +67,16 @@ export const submitLeadViaWeb3Forms: SubmitLead = async (
     return { ok: false, reason: 'unconfigured' };
   }
 
+  /*
+   * Five keys, and no more.
+   *
+   * `email` and `message` are absent rather than sent empty. Web3Forms treats
+   * `email` as the reply-to for the mail it generates, so posting "" sets an
+   * empty reply-to on every enquiry — some inboxes then thread or bounce them
+   * oddly, and it is a field asserting "this is the visitor's address" while
+   * carrying nothing. An empty `message` is the same lie in miniature. If a
+   * value was not collected, it is not submitted.
+   */
   const body = new URLSearchParams({
     access_key: accessKey,
     // Web3Forms' own supported fields: these shape the email that arrives, so
@@ -75,8 +85,6 @@ export const submitLeadViaWeb3Forms: SubmitLead = async (
     from_name: leadForm.emailFromName,
     name: enquiry.name,
     phone: enquiry.phone,
-    email: enquiry.email,
-    message: enquiry.message,
   });
 
   let response: Response;

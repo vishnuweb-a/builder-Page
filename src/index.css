@@ -18,26 +18,62 @@
    ========================================================================== */
 
 :root {
-  /* --- Brand palette (docs/design.md §4) --------------------------------- */
-  --forest: #12382d; /* Deep Golf Green  — nav, dark sections, primary CTA   */
-  --charcoal: #111312; /* Charcoal         — display type, footer              */
-  --ivory: #f4f0e7; /* Warm Ivory       — page ground                       */
-  --gold: #b89b63; /* Champagne Gold   — hairlines + labels ONLY           */
-  --stone: #d5cec0; /* Natural Stone    — borders, secondary surfaces       */
+  /* --- Brand palette ------------------------------------------------------
+     A LIGHT premium green direction: golf-estate landscape rather than deep
+     forest. The greens read as daylight on turf, not as a dark UI chrome.
 
-  /* Derived tones. Not new brand colours — darker/lighter steps of the five
-     above, needed for scrims and raised surfaces. See report §Design system. */
-  --forest-deep: #0c241d;
-  --ivory-raised: #faf8f3;
+     The ladder — and it is a ladder, not one green used five ways:
+
+       --sage        lightest   raised green surface, section alternation
+       --sage-mist   light      page ground (the client-specified #CAEBBD)
+       --sage-line   mid        rules and control borders (3:1 on the grounds)
+       --forest      primary    nav, CTA fill, dark bands  (6.6:1 with ivory)
+       --forest-deep deepest    scrims, hover, green type on light (10:1)
+
+     Note the order of the first two: the RAISED green is lighter than the
+     ground it sits on, exactly as --ivory-raised is lighter than --ivory. That
+     is this palette's one convention for depth, and it survived the ground
+     moving to #CAEBBD — the Amenities band still reads as lifted off the page.
+
+     Every ratio quoted in this file is measured against the surface named
+     beside it, not assumed. Where the lighter green would have cost contrast,
+     the deeper token is used instead — §14 of the brief, and the reason the
+     champagne accent now has three steps rather than one. */
+  --forest: #2f5d4a; /* Golf Green       — nav, dark bands, primary CTA      */
+  --forest-deep: #1e4034; /* Deep Golf Green  — scrims, hover, green type on light */
+  --sage: #dce6d6; /* Light Green      — raised green surface             */
+  --sage-mist: #caebbd; /* Meadow Green     — page ground (client-specified)   */
+  --sage-line: #6e8a68; /* Green Rule       — control borders, hairlines       */
+
+  --charcoal: #111312; /* Charcoal         — display type, footer             */
+  --ivory: #f4f0e7; /* Warm Ivory       — panels, editorial ground         */
+  --ivory-raised: #faf8f3; /* Raised Ivory     — the enquiry panel, plan paper    */
+  --stone: #d5cec0; /* Natural Stone    — warm neutral borders            */
+
+  /* Champagne, in three steps.
+     The single #b89b63 could not survive the lighter greens: as type it is
+     2.3:1 on the mist ground, and as a CTA fill it left forest-on-champagne at
+     2.8:1 where it used to be 4.9:1. So the accent keeps its brand value as a
+     FILL and a HAIRLINE, and gains a darker step for type on light grounds and
+     a lighter step for type on green ones. */
+  --gold: #b89b63; /* Champagne Gold   — hairlines, rules, CTA fill      */
+  --gold-ink: #77602f; /* Champagne Ink    — 5.3:1 on ivory, 4.6:1 on mist  */
+  --gold-lift: #e2cfa0; /* Champagne Lift   — 4.9:1 on forest                */
 
   /* Functional only. Required for accessible form errors; charcoal alone
      cannot signal error state without relying on colour + text together. */
-  --danger: #a32b22; /* 5.9:1 on ivory, passes AA for body text             */
+  --danger: #a32b22; /* 6.3:1 on the mist ground, AA for body text        */
 
   /* Focus indicator. Swapped per surface so it always clears WCAG 2.2 3:1.
-     Champagne is deliberately NOT used here: gold-on-ivory is 2.6:1 and
-     gold-on-forest only 4.6:1, while these two clear 16.5:1 and 11.8:1. */
+     Champagne is deliberately NOT used here: charcoal clears 16.6:1 on the
+     mist ground and ivory clears 6.6:1 on forest. */
   --focus-ring: var(--charcoal);
+
+  /* Champagne AS TYPE, resolved by surface. Eyebrows, required marks and
+     in-form error headings use this rather than --gold directly, so the same
+     component is legible on the mist ground and on the green bands without
+     each call site knowing which surface it landed on. */
+  --accent-ink: var(--gold-ink);
 
   /* --- Type stacks -------------------------------------------------------- */
   --ff-display: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
@@ -66,6 +102,7 @@
    would silently do nothing. */
 .surface-dark {
   --focus-ring: var(--ivory);
+  --accent-ink: var(--gold-lift);
 }
 
 /* ==========================================================================
@@ -84,10 +121,16 @@
 
   --color-forest: var(--forest);
   --color-forest-deep: var(--forest-deep);
+  --color-sage: var(--sage);
+  --color-sage-mist: var(--sage-mist);
+  --color-sage-line: var(--sage-line);
   --color-charcoal: var(--charcoal);
   --color-ivory: var(--ivory);
   --color-ivory-raised: var(--ivory-raised);
   --color-gold: var(--gold);
+  --color-gold-ink: var(--gold-ink);
+  --color-gold-lift: var(--gold-lift);
+  --color-accent: var(--accent-ink);
   --color-stone: var(--stone);
   --color-danger: var(--danger);
 
@@ -129,7 +172,10 @@
   }
 
   body {
-    background-color: var(--ivory);
+    /* The page ground is now the lightest green, not ivory. Ivory is promoted
+       to the RAISED surface — the enquiry panel, the plan paper — which is what
+       gives the light palette its depth instead of one flat green. */
+    background-color: var(--sage-mist);
     color: var(--charcoal);
     font-family: var(--ff-sans);
     font-weight: 400;

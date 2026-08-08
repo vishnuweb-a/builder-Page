@@ -26,11 +26,11 @@ export function PriceLine({ className }: { className?: string }) {
       <Eyebrow>Starting from</Eyebrow>
       <p className="t-numeral text-forest [.surface-dark_&]:text-ivory">
         {formatRupees(price.amount)}
-        <span className="t-eyebrow ml-3 text-charcoal/50 [.surface-dark_&]:text-ivory/50">
+        <span className="t-eyebrow ml-3 text-charcoal/65 [.surface-dark_&]:text-ivory/75">
           / sq ft
         </span>
       </p>
-      <p className="t-fine max-w-sm text-charcoal/50 [.surface-dark_&]:text-ivory/50">
+      <p className="t-fine max-w-sm text-charcoal/65 [.surface-dark_&]:text-ivory/75">
         {sections.regulatory.priceBasisNote} {pricing.disclaimer.value}
       </p>
     </div>
