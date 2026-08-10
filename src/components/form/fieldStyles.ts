@@ -24,7 +24,11 @@ export const fieldSurface = cx(
   'border-sage-line transition-colors duration-[var(--dur-fast)] ease-[var(--ease-out)]',
   'hover:border-forest',
   'focus:border-forest-deep',
-  '[.surface-dark_&]:text-ivory [.surface-dark_&]:placeholder:text-ivory/45',
+  /* No ivory variant for the value or the placeholder. The drawer is a light
+     panel now, and typed text that inverted to ivory on it would be invisible
+     — which is worse than an unreadable placeholder, because the visitor
+     cannot check what they entered before sending it. Charcoal value, grey
+     placeholder, on every surface. */
   '[.surface-dark_&]:border-ivory/40 [.surface-dark_&]:hover:border-ivory/70',
   '[.surface-dark_&]:focus:border-gold-lift',
   'aria-invalid:border-danger [.surface-dark_&]:aria-invalid:border-gold-lift',

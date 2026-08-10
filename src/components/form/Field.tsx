@@ -31,7 +31,10 @@ export function Field({ label, children, hint, error, required = false, classNam
   return (
     <FieldContext value={{ id, describedBy, invalid: Boolean(error), required }}>
       <div className={cx('flex flex-col gap-2', className)}>
-        <label htmlFor={id} className="t-eyebrow text-charcoal/70 [.surface-dark_&]:text-ivory/75">
+        {/* Charcoal on every surface. The ivory variant is gone deliberately:
+            the drawer is a light panel now, and a label that flips to ivory on
+            it is a label nobody can read. */}
+        <label htmlFor={id} className="t-eyebrow text-charcoal">
           {label}
           {required && (
             <span aria-hidden="true" className="ml-1 text-accent">

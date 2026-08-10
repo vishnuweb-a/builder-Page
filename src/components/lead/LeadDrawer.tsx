@@ -90,7 +90,7 @@ export function LeadDrawer({ isOpen, onClose, placement, session }: LeadDrawerPr
          * of reasons: it tracks the visible viewport as the on-screen keyboard
          * opens, so the panel shrinks instead of being pushed off-screen.
          */
-        className={`surface-dark fixed z-50 flex flex-col gap-8 overflow-y-auto overscroll-contain bg-forest p-8 lg:p-12
+        className={`surface-dark fixed z-50 flex flex-col gap-8 overflow-y-auto overscroll-contain bg-[#caebbd] p-8 lg:p-12
           inset-x-0 bottom-0 max-h-[88dvh] rounded-t-[2px] pb-[calc(2rem+env(safe-area-inset-bottom))]
           lg:inset-y-0 lg:right-0 lg:left-auto lg:max-h-none lg:w-[30rem] lg:rounded-none lg:pb-12
           ${isOpen ? '' : 'pointer-events-none'}`}
@@ -142,11 +142,11 @@ function LeadDrawerBody({ titleId, onClose }: { titleId: string; onClose: () => 
   return (
     <>
       <div className="flex flex-col gap-5">
-        <h2 id={titleId} className="t-h2 text-ivory">
+        <h2 id={titleId} className="t-h2 text-charcoal">
           {leadForm.formTitle}
         </h2>
         <HairlineRule tone="gold" className="w-16" />
-        <p className="t-body-lg text-ivory/75">{leadForm.intro}</p>
+        <p className="t-body-lg text-charcoal">{leadForm.intro}</p>
       </div>
 
       {/*
@@ -156,7 +156,8 @@ function LeadDrawerBody({ titleId, onClose }: { titleId: string; onClose: () => 
       */}
       <LeadForm submitVariant="gold" onSuccess={() => setSent(true)} />
 
-      <p className="t-fine text-ivory/75">{leadForm.privacy}</p>
+      {/* Grey, and the same grey the first-viewport panel uses for this line. */}
+      <p className="t-fine text-charcoal/65">{leadForm.privacy}</p>
     </>
   );
 }

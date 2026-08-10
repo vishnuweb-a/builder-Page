@@ -41,15 +41,17 @@ export function LeadSuccess({ titleId, onClose, className }: LeadSuccessProps) {
 
   return (
     <div ref={ref} tabIndex={-1} className={cx('flex flex-col gap-6 outline-none', className)}>
-      <h2 id={titleId} className="t-h2 text-charcoal [.surface-dark_&]:text-ivory">
+      {/* Same treatment as the form's own title and intro. The confirmation
+          takes this slot the moment the enquiry is accepted, so an ivory
+          variant here would hand the visitor a blank green panel at the one
+          moment the page has to say something. */}
+      <h2 id={titleId} className="t-h2 text-charcoal">
         {leadForm.successTitle}
       </h2>
 
       <HairlineRule tone="gold" className="w-16" />
 
-      <p className="t-body-lg text-charcoal/75 [.surface-dark_&]:text-ivory/75">
-        {leadForm.successBody}
-      </p>
+      <p className="t-body-lg text-charcoal">{leadForm.successBody}</p>
 
       {onClose && (
         <CTAButton variant="secondary" onClick={onClose} className="mt-2 self-start">
